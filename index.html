@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Letter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .postcard {
+            position: relative;
+            width: 500px; /* Increased width */
+            height: 300px; /* Increased height */
+            background-color: #add8e6; /* Light blue background */
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+            background-image: repeating-linear-gradient(
+                -45deg,
+                #add8e6,
+                #add8e6 10px,
+                #fff 10px,
+                #fff 20px
+            );
+        }
+        .postcard:hover {
+            transform: scale(1.05);
+        }
+        .heart {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: red;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            text-align: center;
+        }
+        .modal-content h2 {
+            margin-top: 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Add space between buttons */
+        }
+        .button {
+            background-color: #d33;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #b00;
+        }
+        .video-button {
+            background-color: #3498db; /* Blue color for video button */
+        }
+        .video-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="postcard" onclick="openModal()">
+        <div class="heart">❤️</div>
+        <b></b><span>For Krishna Goyal</span></b>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2>Dear Krishna,</h2>
+            <p>
+                I am sorry I have hurted you a lot... You may say I'm a child who may not understand anything but when understands changes itself well.
+                Losing you is not a reward, it is a punishment... You're the first guy with whom in 1 year we have done the enjoyments a lot... Nobody could be as perfect as you.
+                Always been the best and also been close to my heart without any doubts.
+                I may sound weird when I compliment you but truly they are from the heart. Nobody can replace you, my heart would always remain empty without you.
+                I may have a number of friends but without you, the life cycle is incomplete...
+            </p>
+            <p>Thank you for always being in my life and I hope you always</p>
+            <p>Your Friend,<br>Abhiroop Kumar</p>
+            <div class="button-container">
+                <button class="button close" onclick="closeModal()">Close</button>
+                <a href="https://www.example.com" target="_blank" class="button video-button">See the Video</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
