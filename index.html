@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorry Letter</title>
+    <title>Happy Friendship Day</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap'); /* Import a special font */
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -14,14 +16,26 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        .postcard {
+            overflow: hidden;
             position: relative;
-            width: 500px; /* Increased width */
-            height: 300px; /* Increased height */
-            background-color: #add8e6; /* Light blue background */
+        }
+
+        .heading {
+            position: absolute;
+            top: 20px;
+            font-size: 2.5rem;
+            font-family: 'Pacifico', cursive; /* Apply special font */
+            color: #ff6347;
+            text-shadow: 2px 2px #ffe4b5;
+        }
+
+        .gift-box {
+            position: relative;
+            width: 250px; /* Width of the gift box */
+            height: 250px; /* Height of the gift box */
+            background-color: #1e90ff; /* Blue color for the gift box */
             border: 2px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             display: flex;
             justify-content: center;
@@ -29,22 +43,70 @@
             transition: transform 0.3s ease;
             background-image: repeating-linear-gradient(
                 -45deg,
-                #add8e6,
-                #add8e6 10px,
-                #fff 10px,
-                #fff 20px
+                #1e90ff,
+                #1e90ff 15px,
+                #87cefa 15px,
+                #87cefa 30px
             );
+            border-radius: 10px;
         }
-        .postcard:hover {
+
+        .gift-box:hover {
             transform: scale(1.05);
         }
-        .heart {
+
+        .gift-lid {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: red;
+            top: 0;
+            width: 100%;
+            height: 250px; /* Same as the gift box height */
+            background-color: #1e90ff;
+            border-bottom: 2px solid #ccc;
+            transition: transform 0.5s ease-out;
+            transform-origin: left center;
+            background-image: repeating-linear-gradient(
+                -45deg,
+                #1e90ff,
+                #1e90ff 15px,
+                #87cefa 15px,
+                #87cefa 30px
+            );
+            border-radius: 10px;
         }
+
+        .gift-box.open .gift-lid {
+            transform: rotateY(150deg) translateX(10px); /* Horizontal opening */
+        }
+
+        .ribbon {
+            position: absolute;
+            width: 100%;
+            height: 30px; /* Increase height for better visibility */
+            background-color: #ff6347; /* Tomato color for the ribbon */
+            top: 110px; /* Center the ribbon vertically */
+            border-radius: 10px; /* Make the ribbons rounded */
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255, 99, 71, 0.7);
+            transition: opacity 0.5s ease-out;
+        }
+
+        .ribbon-vertical {
+            position: absolute;
+            height: 100%;
+            width: 30px; /* Increase width for better visibility */
+            background-color: #ff6347; /* Tomato color for the ribbon */
+            left: 110px; /* Center the ribbon horizontally */
+            border-radius: 10px;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(255, 99, 71, 0.7);
+            transition: opacity 0.5s ease-out;
+        }
+
+        .gift-box.open .ribbon,
+        .gift-box.open .ribbon-vertical {
+            opacity: 0; /* Hide ribbons when the gift is opened */
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -52,25 +114,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
+            z-index: 10;
         }
+
         .modal-content {
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             max-width: 600px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(100%); /* Start below the screen */
+            transition: transform 0.5s ease-out;
         }
+
+        .modal-content.show {
+            transform: translateY(0); /* Slide up to position */
+        }
+
         .modal-content h2 {
             margin-top: 0;
+            color: #ff6347;
+            font-family: 'Pacifico', cursive; /* Apply special font */
+            font-size: 2rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px; /* Add margin for spacing with image */
         }
+
         .button-container {
             display: flex;
             justify-content: center;
             gap: 10px; /* Add space between buttons */
         }
+
         .button {
             background-color: #d33;
             color: white;
@@ -80,28 +160,55 @@
             cursor: pointer;
             border-radius: 5px;
             text-decoration: none;
+            transition: background-color 0.3s ease;
         }
+
         .button:hover {
             background-color: #b00;
         }
+
         .video-button {
             background-color: #3498db; /* Blue color for video button */
         }
+
         .video-button:hover {
             background-color: #2980b9;
+        }
+
+        /* Styles for image and text alignment */
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .header-content img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 10px; /* Add margin for spacing with text */
         }
     </style>
 </head>
 <body>
 
-    <div class="postcard" onclick="openModal()">
-        <div class="heart">❤️</div>
-        <b></b><span>For Krishna Goyal</span></b>
+    <div class="heading">Happy Friendship Day!</div>
+
+    <div class="gift-box" onclick="openGift()">
+        <div class="gift-lid"></div>
+        <div class="ribbon"></div>
+        <div class="ribbon-vertical"></div>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <h2>Dear Krishna,</h2>
+            <div class="header-content">
+                <!-- Add image here -->
+                <img src="C:\Users\laugh\Downloads\Screenshot_20240804-120947_WhatsApp.jpg" alt="Friendship Image">
+                <h2>Dear Krishna,</h2>
+            </div>
             <p>
                 I am sorry I have hurted you a lot... You may say I'm a child who may not understand anything but when understands changes itself well.
                 Losing you is not a reward, it is a punishment... You're the first guy with whom in 1 year we have done the enjoyments a lot... Nobody could be as perfect as you.
@@ -111,19 +218,34 @@
             </p>
             <p>Thank you for always being in my life and I hope you always</p>
             <p>Your Friend,<br>Abhiroop Kumar</p>
+            <p>Request to see this Apology Video</p>
             <div class="button-container">
                 <button class="button close" onclick="closeModal()">Close</button>
-                <a href="https://drive.google.com/file/d/1lZXzn-0BPWwL_b9YpIWfepqb35xtah42/view?usp=drivesdk" target="_blank" class="button video-button">See the Video</a>
+                <a href="https://www.example.com" target="_blank" class="button video-button">See the Video</a>
             </div>
         </div>
     </div>
 
     <script>
+        function openGift() {
+            const giftBox = document.querySelector('.gift-box');
+            const modalContent = document.querySelector('.modal-content');
+            giftBox.classList.add('open');
+            setTimeout(() => {
+                openModal();
+                modalContent.classList.add('show');
+            }, 500); // Wait for the lid animation to complete before sliding the letter up
+        }
+
         function openModal() {
             document.getElementById('modal').style.display = 'flex';
         }
+        
         function closeModal() {
+            const modalContent = document.querySelector('.modal-content');
             document.getElementById('modal').style.display = 'none';
+            document.querySelector('.gift-box').classList.remove('open'); // Reset the gift box for next time
+            modalContent.classList.remove('show');
         }
     </script>
 
